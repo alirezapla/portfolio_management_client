@@ -6,7 +6,9 @@ import co.pla.portfoliomanagement.identity.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -43,7 +45,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Page<User> findAll(PageRequest pageRequest) {
-        return jpaRepository.findAll(pageRequest);
+    public Page<User> findAll(Pageable pageable) {
+        return jpaRepository.findAll(pageable);
     }
 }

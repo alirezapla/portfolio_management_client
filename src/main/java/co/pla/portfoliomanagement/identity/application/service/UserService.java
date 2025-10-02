@@ -25,12 +25,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDTO createUser(CreateUserDTO createUserDTO) {
-        createUserDTO.updatePassword(passwordEncoder.encode(createUserDTO.getPassword()));
-        return UserDTO.fromEntity(userRepository.save(createUserDTO.toEntity()));
+    public UserDto createUser(CreateUserDto createUserDto) {
+        createUserDto.updatePassword(passwordEncoder.encode(createUserDto.getPassword()));
+        return UserDto.fromEntity(userRepository.save(createUserDto.toEntity()));
     }
 
-    public UserDTO editUser(EditUserDTO request) {
+    public UserDto editUser(EditUserDto request) {
 
         User user = userRepository.findByUid(request.uid())
                 .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND.getTitle())
@@ -44,19 +44,19 @@ public class UserService {
                         .map(UserAuthority::new)
                         .collect(Collectors.toSet()));
 
-        return UserDTO.fromEntity(userRepository.save(user));
+        return UserDto.fromEntity(userRepository.save(user));
     }
 
-    public UserDTO get(UUID id) {
-        return UserDTO.fromEntity(
+    public UserDto get(UUID id) {
+        return UserDto.fromEntity(
                 userRepository.findByUid(id)
                         .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND.getTitle()))
         );
     }
 
-    public UsersDTO findAll(int page, int perPage) {
+    public UsersDto findAll(int page, int perPage) {
         Page<User> all = userRepository.findAll(PageRequest.of(page - 1, perPage));
-        return UsersDTO.fromEntity(all.getContent(), all.getTotalElements());
+        return UsersDto.fromEntity(all.getContent(), all.getTotalElements());
     }
 
     public void delete(UUID id) {
@@ -67,16 +67,16 @@ public class UserService {
         }
     }
 
-    public String changePasswordByAdmin(ChangePasswordByAdminDTO request) {
+    public String changePasswordByAdmin(ChangePasswordByAdminDto request) {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND.getTitle())
                 );
         user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
         userRepository.save(user);
-        return "updated";
+        return "Password changed Successfully";
     }
 
-    public String changePassword(ChangePasswordDTO request) {
+    public String changePassword(ChangePasswordDto request) {
         User user = userRepository.findByUid(request.userUid())
                 .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.RECORD_NOT_FOUND.getTitle())
                 );
@@ -92,9 +92,10 @@ public class UserService {
         return "Password changed Successfully";
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND.getTitle()));
+    public UserDto findByUsername(String username) {
+        return UserDto.fromEntity(userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND.getTitle()))
+        );
     }
 
 }

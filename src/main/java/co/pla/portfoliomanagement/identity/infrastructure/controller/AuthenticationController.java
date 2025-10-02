@@ -1,11 +1,10 @@
 package co.pla.portfoliomanagement.identity.infrastructure.controller;
 
 import co.pla.portfoliomanagement.core.http.response.SuccessfulRequestResponseEntity;
-import co.pla.portfoliomanagement.core.logging.AppLogEvent;
-import co.pla.portfoliomanagement.identity.application.dto.SignupRequest;
-import co.pla.portfoliomanagement.identity.infrastructure.dto.LoginDTO;
-import co.pla.portfoliomanagement.identity.infrastructure.security.AuthenticationService;
+import co.pla.portfoliomanagement.identity.application.dto.SignupDto;
+import co.pla.portfoliomanagement.gateway.security.AuthenticationService;
 
+import co.pla.portfoliomanagement.identity.infrastructure.dto.LoginDto;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 
@@ -21,11 +20,12 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "login")
-    public ResponseEntity<Object> login(@Valid @RequestBody LoginDTO loginDto) {
+    public ResponseEntity<Object> login(@Valid @RequestBody LoginDto loginDto) {
         return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(authenticationService.login(loginDto)));
     }
+
     @PostMapping(value = "signup")
-    public ResponseEntity<Object> login(@Valid @RequestBody SignupRequest signupDto) {
+    public ResponseEntity<Object> signup(@Valid @RequestBody SignupDto signupDto) {
         return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(authenticationService.signup(signupDto)));
     }
 

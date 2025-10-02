@@ -9,21 +9,21 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class UsersDTO {
+public class UsersDto {
 
-    private final List<UserDTO> users;
+    private final List<UserDto> users;
     private final Long total;
 
-    public UsersDTO(List<UserDTO> users, Long total) {
+    public UsersDto(List<UserDto> users, Long total) {
         this.users = users;
         this.total = total;
     }
 
-    public static UsersDTO fromEntity(List<User> users, Long totalElements) {
-        return new UsersDTO(
+    public static UsersDto fromEntity(List<User> users, Long totalElements) {
+        return new UsersDto(
                 users
                         .stream()
-                        .map(UserDTO::fromEntity)
+                        .map(UserDto::fromEntity)
                         .collect(Collectors.toList()),
                 totalElements);
     }

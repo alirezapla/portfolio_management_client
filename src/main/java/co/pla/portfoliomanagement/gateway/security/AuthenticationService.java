@@ -1,23 +1,17 @@
-package co.pla.portfoliomanagement.identity.infrastructure.security;
+package co.pla.portfoliomanagement.gateway.security;
 
-import co.pla.portfoliomanagement.core.logging.AppLogEvent;
 import co.pla.portfoliomanagement.core.exceptions.ExceptionMessages;
-import co.pla.portfoliomanagement.core.logging.MyLogger;
-import co.pla.portfoliomanagement.identity.application.dto.CreateUserDTO;
-import co.pla.portfoliomanagement.identity.application.dto.SignupRequest;
-import co.pla.portfoliomanagement.identity.application.dto.UserDTO;
+import co.pla.portfoliomanagement.identity.application.dto.CreateUserDto;
+import co.pla.portfoliomanagement.identity.application.dto.SignupDto;
+import co.pla.portfoliomanagement.identity.application.dto.UserDto;
 import co.pla.portfoliomanagement.identity.application.service.UserService;
 import co.pla.portfoliomanagement.identity.domain.entity.User;
-import co.pla.portfoliomanagement.identity.domain.entity.UserAuthority;
 import co.pla.portfoliomanagement.identity.domain.entity.UserAuthorityType;
-import co.pla.portfoliomanagement.identity.domain.repository.UserRepository;
-import co.pla.portfoliomanagement.identity.infrastructure.dto.LoginDTO;
-import co.pla.portfoliomanagement.identity.infrastructure.dto.LoginSuccessDTO;
+import co.pla.portfoliomanagement.identity.infrastructure.dto.LoginDto;
+import co.pla.portfoliomanagement.identity.infrastructure.dto.LoginSuccessDto;
 import co.pla.portfoliomanagement.identity.infrastructure.exceptions.InvalidPasswordException;
-import co.pla.portfoliomanagement.identity.infrastructure.exceptions.UserCredentialNotFoundException;
-import co.pla.portfoliomanagement.identity.infrastructure.util.JwtUtil;
+import co.pla.portfoliomanagement.gateway.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.logging.LogLevel;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +19,7 @@ import java.util.HashSet;
 
 @Slf4j
 @Service
-public class AuthenticationService{
+public class AuthenticationService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
@@ -37,16 +31,16 @@ public class AuthenticationService{
         this.passwordEncoder = passwordEncoder;
     }
 
-    public LoginSuccessDTO login(LoginDTO loginDTO) {
-        User user = userService.findByUsername(loginDTO.getUsername());
-        checkPassword(user, loginDTO.getPassword());
-        return LoginSuccessDTO.mapFromUserCredentials(user, jwtUtil.generateToken(user));
+    public LoginSuccessDto login(LoginDto loginDto) {
+        User user = userService.findByUsername(loginDto.username());
+        checkPassword(user, loginDto.password());
+        return LoginSuccessDto.mapFromUserCredentials(user, jwtUtil.generateToken(user));
     }
 
-    public UserDTO signup(SignupRequest request) {
+    public UserDto signup(SignupDto signupDto) {
         var authorities = new HashSet<String>();
         authorities.add(UserAuthorityType.AUTHORITY_USER.getTitle());
-       return userService.createUser(new CreateUserDTO(request, authorities));
+        return userService.createUser(new CreateUserDto(signupDto, authorities));
     }
 
     private void checkPassword(User user, String password) {

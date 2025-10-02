@@ -12,23 +12,23 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class CreateUserDTO {
+public class CreateUserDto {
     private String username;
     private String password;
     private String email;
     private Set<String> authorities;
 
-    public CreateUserDTO() {
+    public CreateUserDto() {
     }
 
-    public CreateUserDTO(String username, String password, String email, Set<String> authorities) {
+    public CreateUserDto(String username, String password, String email, Set<String> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
     }
 
-    public CreateUserDTO(SignupRequest signupRequest, Set<String> authorities) {
+    public CreateUserDto(SignupDto signupRequest, Set<String> authorities) {
         this(signupRequest.username(), signupRequest.password(), signupRequest.email(), authorities);
     }
 

@@ -1,12 +1,12 @@
 package co.pla.portfoliomanagement.identity.infrastructure.controller;
 
 import co.pla.portfoliomanagement.core.http.response.SuccessfulRequestResponseEntity;
-import co.pla.portfoliomanagement.core.logging.AppLogEvent;
-import co.pla.portfoliomanagement.identity.application.dto.ChangePasswordByAdminDTO;
-import co.pla.portfoliomanagement.identity.application.dto.ChangePasswordDTO;
-import co.pla.portfoliomanagement.identity.application.dto.EditUserDTO;
+import co.pla.portfoliomanagement.identity.application.dto.ChangePasswordByAdminDto;
+import co.pla.portfoliomanagement.identity.application.dto.ChangePasswordDto;
+import co.pla.portfoliomanagement.identity.application.dto.EditUserDto;
 import co.pla.portfoliomanagement.identity.application.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -32,18 +32,19 @@ public class UserController {
     }
 
     @PutMapping()
-    public ResponseEntity<Object> updateUser(@RequestBody EditUserDTO editUserDTO) {
-        return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(userService.editUser(editUserDTO)));
+    public ResponseEntity<Object> updateUser(@RequestBody EditUserDto editUserDto) {
+        return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(userService.editUser(editUserDto)));
     }
 
     @PutMapping("/admin/change-password")
-    public ResponseEntity<Object> changePasswordByAdmin(@RequestBody ChangePasswordByAdminDTO changePasswordByAdminDTO) {
-        return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(userService.changePasswordByAdmin(changePasswordByAdminDTO)));
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Object> changePasswordByAdmin(@RequestBody ChangePasswordByAdminDto changePasswordByAdminDto) {
+        return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(userService.changePasswordByAdmin(changePasswordByAdminDto)));
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
-        return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(userService.changePassword(changePasswordDTO)));
+    public ResponseEntity<Object> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        return ResponseEntity.ok(new SuccessfulRequestResponseEntity<>(userService.changePassword(changePasswordDto)));
     }
 
     @DeleteMapping("/{id}")

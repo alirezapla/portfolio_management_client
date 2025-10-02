@@ -5,5 +5,5 @@ import java.util.Set;
 import java.util.UUID;
 
 
-public record EditUserDTO(UUID uid, String username, Set<String> authorities) {
+public record EditUserDto(UUID uid, String username, Set<String> authorities) {
 }

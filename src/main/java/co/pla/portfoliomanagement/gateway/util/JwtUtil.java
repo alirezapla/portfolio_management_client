@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.identity.infrastructure.util;
+package co.pla.portfoliomanagement.gateway.util;
 
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +10,7 @@ import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;

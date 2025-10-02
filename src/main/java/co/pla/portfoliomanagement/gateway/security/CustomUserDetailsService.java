@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.identity.infrastructure.security;
+package co.pla.portfoliomanagement.gateway.security;
 
 import co.pla.portfoliomanagement.identity.infrastructure.repository.jpa.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
