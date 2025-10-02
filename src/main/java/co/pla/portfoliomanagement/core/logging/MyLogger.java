@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.core.logging;
+package co.pla.portfoliomanagement.common.logging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

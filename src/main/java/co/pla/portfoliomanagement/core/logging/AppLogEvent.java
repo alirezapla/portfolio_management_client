@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.core.logging;
+package co.pla.portfoliomanagement.common.logging;
 
 public enum AppLogEvent {
 

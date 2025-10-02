@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.core.exceptions;
+package co.pla.portfoliomanagement.common.exceptions;
 
 public enum ExceptionMessages {
     EXCEPTION(0, "Exception!"),

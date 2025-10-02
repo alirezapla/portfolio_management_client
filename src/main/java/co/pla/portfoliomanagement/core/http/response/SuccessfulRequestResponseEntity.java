@@ -1,6 +1,4 @@
-package co.pla.portfoliomanagement.core.http.response;
-
-import co.pla.portfoliomanagement.core.logging.AppLogEvent;
+package co.pla.portfoliomanagement.common.http.response;
 
 public class SuccessfulRequestResponseEntity<T> extends BaseHttpResponse<T> {
     public SuccessfulRequestResponseEntity(T data) {

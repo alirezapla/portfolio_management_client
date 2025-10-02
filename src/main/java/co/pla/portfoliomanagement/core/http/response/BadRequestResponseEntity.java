@@ -1,7 +1,7 @@
-package co.pla.portfoliomanagement.core.http.response;
+package co.pla.portfoliomanagement.common.http.response;
 
 
-import co.pla.portfoliomanagement.core.exceptions.ExceptionMessages;
+import co.pla.portfoliomanagement.common.exceptions.ExceptionMessages;
 
 public class BadRequestResponseEntity<T> extends BaseHttpResponse<T> {
     public BadRequestResponseEntity(T data) {

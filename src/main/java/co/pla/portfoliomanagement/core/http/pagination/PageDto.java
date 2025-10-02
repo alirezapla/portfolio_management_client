@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.core.http.pagination;
+package co.pla.portfoliomanagement.common.http.pagination;
 
 import lombok.Getter;
 

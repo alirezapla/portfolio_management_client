@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.core.http.response;
+package co.pla.portfoliomanagement.common.http.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.core.entity;
+package co.pla.portfoliomanagement.common.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
