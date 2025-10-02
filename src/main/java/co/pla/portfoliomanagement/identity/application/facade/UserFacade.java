@@ -1,7 +1,7 @@
-package co.pla.portfoliomanagement.identity.facade;
+package co.pla.portfoliomanagement.identity.application.facade;
 
-import co.pla.portfoliomanagement.identity.dto.UserDto;
-import co.pla.portfoliomanagement.identity.service.UserService;
+import co.pla.portfoliomanagement.identity.application.dto.UserDTO;
+import co.pla.portfoliomanagement.identity.application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +13,11 @@ public class UserFacade {
 
     private final UserService userService;
 
-    public UserDto getUserByUid(UUID uid) {
+    public UserDTO getUserByUid(UUID uid) {
         return userService.findByUid(uid);
     }
 
-    public UserDto createUser(UserDto userDto) {
+    public UserDTO createUser(UserDTO userDto) {
         return userService.create(userDto);
     }
 
