@@ -4,6 +4,7 @@ package co.pla.portfoliomanagement.identity.application.facade.impl;
 import co.pla.portfoliomanagement.identity.application.dto.*;
 import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
 import co.pla.portfoliomanagement.identity.application.service.UserService;
+import co.pla.portfoliomanagement.identity.domain.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +21,18 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public UserDto getUserByUserName(String username) {
-        return userService.findByUsername(username);
+    public boolean isPresent(UUID uid) {
+        return userService.isPresent(uid);
+    }
+
+    @Override
+    public UserDto createUser(CreateUserDto createUserDto) {
+        return userService.createUser(createUserDto);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userService.getByUsername(username);
     }
 
     @Override

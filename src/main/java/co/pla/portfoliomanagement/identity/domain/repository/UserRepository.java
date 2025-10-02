@@ -15,6 +15,5 @@ public interface UserRepository {
     User save(User user);
     void deleteById(UUID uid);
     Page<User> findAll(Pageable pageable);
-
-
+    boolean isPresent(UUID uid);
 }

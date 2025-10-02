@@ -1,6 +1,6 @@
 package co.pla.portfoliomanagement.identity.domain.entity;
 
-import co.pla.portfoliomanagement.core.exceptions.ExceptionMessages;
+import co.pla.portfoliomanagement.common.exceptions.ExceptionMessages;
 import lombok.Getter;
 
 @Getter

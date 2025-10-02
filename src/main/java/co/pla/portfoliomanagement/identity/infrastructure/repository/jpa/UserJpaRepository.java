@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
 public interface UserJpaRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
@@ -18,5 +17,6 @@ public interface UserJpaRepository extends JpaRepository<User, Long> {
 
     void deleteByUid(UUID uid);
 
+    boolean existsByUid(UUID uid);
     Page<User> findAll(Pageable pageable);
 }

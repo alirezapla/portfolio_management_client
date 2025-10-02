@@ -1,6 +1,6 @@
 package co.pla.portfoliomanagement.identity.domain.entity;
 
-import co.pla.portfoliomanagement.core.entity.BaseEntity;
+import co.pla.portfoliomanagement.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

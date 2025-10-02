@@ -1,0 +1,93 @@
+app:
+  jwt:
+    token-expiration-minutes: 60
+    secret-key: BMmbDWpwfa2r123asafafPLAQWnkuNzksiCFOjKhTSecyyRet
+
+com:
+  portfolio:
+    application:
+      version: 0.0.1
+server:
+  servlet:
+    context-path: /api/v1
+  port: 4569
+
+spring:
+  application:
+    name: portfolio-management
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/portfolio?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123@abc
+  jpa:
+    show-sql: false
+    open-in-view: false
+    properties:
+
+      hibernate.format_sql: true
+      hibernate.jdbc.time_zone: UTC
+      hibernate.id.new_generator_mappings: true
+      #      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: portfolio
+
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  flyway:
+    baselineOnMigrate: true
+    enabled: true
+    schemas: portfolio
+    default-schema: portfolio
+    locations: classpath:db/migration
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never # Let Flyway handle schema initialization
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: portfolioScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            tablePrefix: quartz.qrtz_
+            isClustered: false
+            dataSource: myDS
+          dataSource:
+            myDS:
+              driver: org.postgresql.Driver
+              URL: jdbc:postgresql://localhost:5432/portfolio?useSSL=false
+              user: root
+              password: 123@abc
+              maxConnections: 5
+
+  rabbitmq:
+    send-queue: ai-entrypoint
+    host: localhost                                               #change_me
+    password: guest                                               #change_me
+    port: 5672
+    username: guest                                               #change_me
+    virtual-host: pla                                             #change_me
+

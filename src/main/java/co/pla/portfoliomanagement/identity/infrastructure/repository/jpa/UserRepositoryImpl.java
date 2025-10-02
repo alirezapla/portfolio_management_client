@@ -48,4 +48,9 @@ public class UserRepositoryImpl implements UserRepository {
     public Page<User> findAll(Pageable pageable) {
         return jpaRepository.findAll(pageable);
     }
+
+    @Override
+    public boolean isPresent(UUID uid) {
+        return jpaRepository.existsByUid(uid);
+    }
 }
