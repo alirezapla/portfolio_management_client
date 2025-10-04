@@ -32,11 +32,9 @@ spring:
     show-sql: false
     open-in-view: false
     properties:
-
       hibernate.format_sql: true
       hibernate.jdbc.time_zone: UTC
       hibernate.id.new_generator_mappings: true
-      #      hibernate.connection.provider_disables_autocommit: true
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
@@ -75,13 +73,6 @@ spring:
             tablePrefix: quartz.qrtz_
             isClustered: false
             dataSource: myDS
-          dataSource:
-            myDS:
-              driver: org.postgresql.Driver
-              URL: jdbc:postgresql://localhost:5432/portfolio?useSSL=false
-              user: root
-              password: 123@abc
-              maxConnections: 5
 
   rabbitmq:
     send-queue: ai-entrypoint

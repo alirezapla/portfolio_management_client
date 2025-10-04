@@ -29,5 +29,4 @@ public class AuthenticationController {
     public ResponseEntity<Object> signup(@Valid @RequestBody SignupDto signupDto) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(authenticationService.signup(signupDto)));
     }
-
 }
