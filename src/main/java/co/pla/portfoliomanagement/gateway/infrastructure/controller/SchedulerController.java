@@ -4,7 +4,6 @@ import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
 import co.pla.portfoliomanagement.scheduler.application.facade.SchedulerFacade;
 import jakarta.validation.Valid;
-import org.quartz.SchedulerException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,22 +22,22 @@ public class SchedulerController {
     }
 
     @PutMapping("/job/{id}")
-    public ResponseEntity<Object> updateTask(@RequestBody SchedulerDto schedulerDto, @PathVariable String id) throws SchedulerException {
+    public ResponseEntity<Object> updateTask(@RequestBody SchedulerDto schedulerDto, @PathVariable String id) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.updateScheduler(schedulerDto, id)));
     }
 
     @GetMapping("/jobs")
-    public ResponseEntity<Object> getJobs() throws SchedulerException {
+    public ResponseEntity<Object> getJobs() {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.getAllJobs()));
     }
 
     @GetMapping("/job/{id}")
-    public ResponseEntity<Object> getJob(@PathVariable String id) throws SchedulerException {
+    public ResponseEntity<Object> getJob(@PathVariable String id) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.getJob(id)));
     }
 
     @DeleteMapping("/job/{id}")
-    public ResponseEntity<Void> removeJob(@PathVariable String id) throws SchedulerException {
+    public ResponseEntity<Void> removeJob(@PathVariable String id) {
         var res = schedulerFacade.removeJob(id);
         return ResponseEntity.ok().build();
     }
