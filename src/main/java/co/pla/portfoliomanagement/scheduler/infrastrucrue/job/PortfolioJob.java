@@ -1,6 +1,6 @@
 package co.pla.portfoliomanagement.scheduler.infrastrucrue.job;
 
-import co.pla.portfoliomanagement.scheduler.service.PortfolioJobService;
+import co.pla.portfoliomanagement.scheduler.application.service.SchedulerService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.quartz.StatefulJob;
@@ -16,10 +16,10 @@ public class PortfolioJob implements StatefulJob {
 
     private static final Logger logger = LoggerFactory.getLogger(PortfolioJob.class);
 
-    private final PortfolioJobService portfolioJobService;
+    private final SchedulerService schedulerService;
 
-    public PortfolioJob(PortfolioJobService portfolioJobService) {
-        this.portfolioJobService = portfolioJobService;
+    public PortfolioJob(SchedulerService schedulerService) {
+        this.schedulerService = schedulerService;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class PortfolioJob implements StatefulJob {
         var traceId = UUID.randomUUID().toString();
         logger.info("PortfolioJob Started");
         try {
-            portfolioJobService.processPortfolios();
+            schedulerService.getAllJobs();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
