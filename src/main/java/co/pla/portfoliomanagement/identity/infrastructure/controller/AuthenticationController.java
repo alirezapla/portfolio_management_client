@@ -1,6 +1,7 @@
-package co.pla.portfoliomanagement.identity.infrastructure.controller;
+package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
-import co.pla.portfoliomanagement.core.http.response.SuccessfulRequestResponseEntity;
+import co.pla.portfoliomanagement.common.http.response.SuccessfulRequestResponseEntity;
+import co.pla.portfoliomanagement.gateway.infrastructure.security.AuthenticationService;
 import co.pla.portfoliomanagement.identity.application.dto.SignupDto;
 import co.pla.portfoliomanagement.gateway.security.AuthenticationService;
 

@@ -1,6 +1,7 @@
-package co.pla.portfoliomanagement.gateway.security;
+package co.pla.portfoliomanagement.gateway.infrastructure.security;
 
-import co.pla.portfoliomanagement.gateway.util.JwtUtil;
+import co.pla.portfoliomanagement.gateway.infrastructure.util.JwtUtil;
+import co.pla.portfoliomanagement.identity.infrastructure.security.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.gateway.util;
+package co.pla.portfoliomanagement.gateway.infrastructure.util;
 
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 import org.springframework.beans.factory.annotation.Value;

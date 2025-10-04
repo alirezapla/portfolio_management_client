@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.gateway.security;
+package co.pla.portfoliomanagement.gateway.infrastructure.security;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

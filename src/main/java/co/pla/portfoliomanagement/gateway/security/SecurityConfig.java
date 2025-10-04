@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.gateway.security;
+package co.pla.portfoliomanagement.gateway.infrastructure.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
