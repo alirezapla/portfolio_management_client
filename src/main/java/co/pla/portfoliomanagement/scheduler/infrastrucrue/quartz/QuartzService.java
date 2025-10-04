@@ -43,7 +43,6 @@ public class QuartzService implements SchedulerContract {
         this.scheduler = scheduler;
     }
 
-    @Override
     public JobDetail buildJobDetail(Class<? extends Job> jobClass, JobDataMap jobDataMap) {
         String jobName = jobDataMap.getString("name");
         if (StringUtils.isBlank(jobName)) {
@@ -58,7 +57,6 @@ public class QuartzService implements SchedulerContract {
                 .build();
     }
 
-    @Override
     public Trigger buildJobTrigger(JobDetail jobDetail, ZonedDateTime startAt, int interval) {
         return TriggerBuilder.newTrigger()
                 .forJob(jobDetail)
@@ -70,7 +68,6 @@ public class QuartzService implements SchedulerContract {
                 .build();
     }
 
-    @Override
     public CronTrigger buildJobTrigger(JobDetail jobDetail, String cronExpression) {
         /**
          * cronExpression -> e.g: "0 0/2 8-17 * * ?"

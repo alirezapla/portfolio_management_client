@@ -11,12 +11,6 @@ import java.util.Optional;
 
 public interface SchedulerContract {
 
-    JobDetail buildJobDetail(Class<? extends Job> jobClass, JobDataMap jobDataMap);
-
-    Trigger buildJobTrigger(JobDetail jobDetail, ZonedDateTime startAt, int interval);
-
-    CronTrigger buildJobTrigger(JobDetail jobDetail, String cronExpression);
-
     List<JobSummaryDto> getAllJobs();
 
     String updateScheduler(SchedulerDto schedulerDto, String jobId);
