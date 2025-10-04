@@ -2,7 +2,7 @@ package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
 import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
-import co.pla.portfoliomanagement.scheduler.facade.SchedulerFacade;
+import co.pla.portfoliomanagement.scheduler.application.facade.SchedulerFacade;
 import jakarta.validation.Valid;
 import org.quartz.SchedulerException;
 import org.springframework.http.ResponseEntity;

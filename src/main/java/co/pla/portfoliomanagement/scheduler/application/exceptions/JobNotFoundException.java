@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.scheduler.exceptions;
+package co.pla.portfoliomanagement.scheduler.application.exceptions;
 
 import co.pla.portfoliomanagement.common.exceptions.BaseApplicationException;
 

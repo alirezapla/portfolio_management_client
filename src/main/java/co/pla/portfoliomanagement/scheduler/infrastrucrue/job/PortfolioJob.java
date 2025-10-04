@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.scheduler.job;
+package co.pla.portfoliomanagement.scheduler.infrastrucrue.job;
 
 import co.pla.portfoliomanagement.scheduler.service.PortfolioJobService;
 import lombok.extern.slf4j.Slf4j;
