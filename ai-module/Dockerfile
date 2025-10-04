@@ -7,5 +7,4 @@ RUN python3 -m pip install  --trusted-host https://pypi.mirrors.ustc.edu.cn -i h
 
 RUN mkdir /app
 WORKDIR /app
-RUN pip uninstall numpy -y
-RUN pip install  --trusted-host https://pypi.mirrors.ustc.edu.cn -i https://pypi.mirrors.ustc.edu.cn/simple/  -r requirements.txt
+RUN pip install  --trusted-host https://pypi.mirrors.ustc.edu.cn -i https://pypi.mirrors.ustc.edu.cn/simple/  -r requirements.txtgit
