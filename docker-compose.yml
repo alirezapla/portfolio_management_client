@@ -12,3 +12,15 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+
+  rabbitmq:
+    image: rabbitmq:3.10-management
+    container_name: portfolio-rabbitmq-broker
+    command: "rabbitmq-server"
+    environment:
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_VHOST=pla
+    ports:
+      - "5672:5672"
+      - "15672:15672"

@@ -72,7 +72,14 @@ spring:
             driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
             tablePrefix: quartz.qrtz_
             isClustered: false
-            dataSource: myDS
+            dataSource: quartzDataSource
+          dataSource:
+              quartzDataSource:
+                URL:  jdbc:postgresql://localhost:5432/portfolio?allowPublicKeyRetrieval=true&useSSL=false
+                driver: org.postgresql.Driver
+                provider: hikaricp
+                user: root
+                password: 123@abc
 
   rabbitmq:
     send-queue: ai-entrypoint
@@ -81,4 +88,6 @@ spring:
     port: 5672
     username: guest                                               #change_me
     virtual-host: pla                                             #change_me
-
+    routingKey: prediction
+    exchange: prediction-exchange
+    receive-queue: prediction-result
