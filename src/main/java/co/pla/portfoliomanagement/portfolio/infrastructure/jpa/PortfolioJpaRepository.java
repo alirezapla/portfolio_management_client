@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.portfolio.infrastructure.repository;
+package co.pla.portfoliomanagement.portfolio.infrastructure.jpa;
 
 import co.pla.portfoliomanagement.portfolio.domain.entity.Portfolio;
 import org.springframework.data.jpa.repository.JpaRepository;

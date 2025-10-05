@@ -4,7 +4,7 @@ import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 import co.pla.portfoliomanagement.scheduler.application.dto.JobDetailDto;
 import co.pla.portfoliomanagement.scheduler.application.dto.JobSummaryDto;
 import co.pla.portfoliomanagement.scheduler.application.facade.SchedulerFacade;
-import co.pla.portfoliomanagement.scheduler.infrastrucrue.job.JobEnum;
+import co.pla.portfoliomanagement.scheduler.infrastructure.job.JobEnum;
 import co.pla.portfoliomanagement.scheduler.application.service.SchedulerService;
 import org.springframework.stereotype.Service;
 

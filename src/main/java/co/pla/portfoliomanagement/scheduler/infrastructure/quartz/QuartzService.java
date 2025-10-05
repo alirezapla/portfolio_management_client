@@ -1,9 +1,8 @@
-package co.pla.portfoliomanagement.scheduler.infrastrucrue.quartz;
+package co.pla.portfoliomanagement.scheduler.infrastructure.quartz;
 
 import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 import co.pla.portfoliomanagement.scheduler.application.dto.JobDetailDto;
 import co.pla.portfoliomanagement.scheduler.application.dto.JobSummaryDto;
-import co.pla.portfoliomanagement.scheduler.application.exceptions.JobConfigurationException;
 import co.pla.portfoliomanagement.scheduler.application.exceptions.JobDetailException;
 import co.pla.portfoliomanagement.scheduler.application.service.SchedulerService;
 import co.pla.portfoliomanagement.scheduler.domain.SchedulerContract;
@@ -36,7 +35,7 @@ public class QuartzService implements SchedulerContract {
     public static final String JOB_DETAIL_DESCRIPTION = "QUARTZ_JOB_DESCRIPTION";
     public static final String TRIGGER_DESCRIPTION = "QUARTZ_TRIGGER_DESCRIPTION";
     private static final Logger logger = LoggerFactory.getLogger(SchedulerService.class);
-    private static final String JOB_PACKAGE_BASE = "co.pla.portfoliomanagement.scheduler.job.";
+    private static final String JOB_PACKAGE_BASE = "co.pla.portfoliomanagement.scheduler.infrastructure.job.";
     private final Scheduler scheduler;
 
     public QuartzService(Scheduler scheduler) {
