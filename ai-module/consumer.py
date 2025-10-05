@@ -46,15 +46,16 @@ async def message_handler(message: AbstractIncomingMessage, send_queue: str):
 
 def _result_message(message: PredictionMessage):
     res = {
-        "transaction_id": message.transaction_id,
+        "message": message.message,
         "trace_id": message.trace_id,
-        "portfolio_id": message.national_id,
+        "portfolio_id": message.portfolio_id,
     }
     return res
 
 
 def _fetch_message(message: AbstractIncomingMessage) -> PredictionMessage:
     json_msg = json.loads(message.body.decode("utf8"))
+    print(json_msg)
     _msg = PredictionMessage(**orjson.loads(message.body.decode("utf8")))
     logger.info(json_msg, _msg.trace_id, "INCOMING_MESSAGE", "_fetch_message")
     return _msg

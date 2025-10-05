@@ -7,5 +7,5 @@ TICS_FILE = "data/top100.txt"
 rabbit_user = config("rabbitmq_username", "guest")
 rabbit_pass = config("rabbitmq_password", "guest")
 rabbit_host = config("rabbitmq_addresses", "rabbitmq")
-rabbit_vhost = config("rabbitmq_virtual_host", "ivs")
+rabbit_vhost = config("rabbitmq_virtual_host", "pla")
 BROKER = f"amqp://{rabbit_user}:{rabbit_pass}@{rabbit_host}/{rabbit_vhost}"
