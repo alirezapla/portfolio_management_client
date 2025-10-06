@@ -2,7 +2,7 @@ package co.pla.portfoliomanagement.portfolio.application.service;
 
 import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
 import co.pla.portfoliomanagement.portfolio.application.dto.PortfolioDto;
-import co.pla.portfoliomanagement.portfolio.application.dto.PositionDto;
+import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
 import co.pla.portfoliomanagement.portfolio.application.exceptions.InvalidPositionUpdateException;
 import co.pla.portfoliomanagement.portfolio.application.exceptions.PortfolioException;
 import co.pla.portfoliomanagement.portfolio.application.exceptions.PortfolioNotFoundException;
@@ -48,51 +48,51 @@ public class PortfolioService {
                 .toList();
     }
 
-    public PortfolioDto addPosition(UUID portfolioUid, PositionDto positionDto) {
+    public PortfolioDto addPosition(UUID portfolioUid, StockPositionDto StockPositionDto) {
         Portfolio portfolio = portfolioRepository.findByUid(portfolioUid)
                 .orElseThrow(() -> new PortfolioNotFoundException("Portfolio not found"));
 
         StockPosition pos = new StockPosition();
         pos.setPortfolio(portfolio);
-        pos.setTicker(positionDto.ticker());
-        pos.setQuantity(positionDto.quantity());
-        pos.setWeight(positionDto.weight());
+        pos.setTicker(StockPositionDto.ticker());
+        pos.setQuantity(StockPositionDto.quantity());
+        pos.setWeight(StockPositionDto.weight());
 
         portfolio.getStockPositions().add(pos);
 
         return PortfolioDto.fromEntity(portfolioRepository.save(portfolio));
     }
 
-    public PortfolioDto updatePosition(UUID portfolioUid, PositionDto positionDto) {
+    public PortfolioDto updatePosition(UUID portfolioUid, StockPositionDto StockPositionDto) {
         Portfolio portfolio = portfolioRepository.findByUidWithStockPositions(portfolioUid)
                 .orElseThrow(() -> new PortfolioNotFoundException("Portfolio not found: " + portfolioUid));
 
         StockPosition existingPosition = portfolio.getStockPositions().stream()
-                .filter(position -> Objects.equals(position.getTicker(), positionDto.ticker()))
+                .filter(position -> Objects.equals(position.getTicker(), StockPositionDto.ticker()))
                 .findFirst()
                 .orElseThrow(() -> new PositionNotFoundException(
-                        "Position with symbol " + positionDto.ticker() + " not found in portfolio"));
-        existingPosition.setQuantity(calculateNewQuantity(existingPosition, positionDto));
-        existingPosition.setWeight(calculateNewWeight(existingPosition, positionDto));
+                        "Position with symbol " + StockPositionDto.ticker() + " not found in portfolio"));
+        existingPosition.setQuantity(calculateNewQuantity(existingPosition, StockPositionDto));
+        existingPosition.setWeight(calculateNewWeight(existingPosition, StockPositionDto));
 
         Portfolio updatedPortfolio = portfolioRepository.save(portfolio);
         return PortfolioDto.fromEntity(updatedPortfolio);
     }
 
-    private double calculateNewWeight(StockPosition existingPosition, PositionDto positionDto) {
-        var newWeight = existingPosition.getWeight() + positionDto.weight();
+    private double calculateNewWeight(StockPosition existingPosition, StockPositionDto StockPositionDto) {
+        var newWeight = existingPosition.getWeight() + StockPositionDto.weight();
         if (newWeight > 100) {
             throw new InvalidPositionUpdateException("Position exceeds maximum value");
         }
         return newWeight;
     }
 
-    private int calculateNewQuantity(StockPosition existingPosition, PositionDto positionDto) {
-        var newQuantity = existingPosition.getQuantity() + positionDto.quantity();
+    private int calculateNewQuantity(StockPosition existingPosition, StockPositionDto StockPositionDto) {
+        var newQuantity = existingPosition.getQuantity() + StockPositionDto.quantity();
         if (newQuantity < 0) {
             throw new InvalidPositionUpdateException(
                     "Cannot reduce quantity below zero. Current: " + existingPosition.getQuantity() +
-                            ", Reduction: " + positionDto.quantity());
+                            ", Reduction: " + StockPositionDto.quantity());
         }
         return newQuantity;
     }

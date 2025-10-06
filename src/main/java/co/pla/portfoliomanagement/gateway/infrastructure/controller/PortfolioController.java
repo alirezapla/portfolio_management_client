@@ -2,7 +2,7 @@ package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
 import co.pla.portfoliomanagement.gateway.dto.PortfolioRequest;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
-import co.pla.portfoliomanagement.portfolio.application.dto.PositionDto;
+import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
 import co.pla.portfoliomanagement.portfolio.application.facade.PortfolioFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +32,12 @@ public class PortfolioController {
 
     @PostMapping("/{portfolioUid}/positions")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Object> addPosition(@PathVariable UUID portfolioUid, @RequestBody PositionDto dto) {
+    public ResponseEntity<Object> addPosition(@PathVariable UUID portfolioUid, @RequestBody StockPositionDto dto) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(portfolioFacade.addPosition(portfolioUid, dto)));
     }
     @PutMapping("/{portfolioUid}/positions")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Object> updatePosition(@PathVariable UUID portfolioUid, @RequestBody PositionDto dto) {
+    public ResponseEntity<Object> updatePosition(@PathVariable UUID portfolioUid, @RequestBody StockPositionDto dto) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(portfolioFacade.updatePosition(portfolioUid, dto)));
     }
 }

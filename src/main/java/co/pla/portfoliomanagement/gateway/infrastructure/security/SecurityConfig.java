@@ -39,15 +39,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         http.csrf().disable()
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/message").permitAll()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
 }

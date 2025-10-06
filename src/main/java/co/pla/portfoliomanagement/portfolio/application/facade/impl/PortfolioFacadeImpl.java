@@ -1,7 +1,7 @@
 package co.pla.portfoliomanagement.portfolio.application.facade.impl;
 
 import co.pla.portfoliomanagement.portfolio.application.dto.PortfolioDto;
-import co.pla.portfoliomanagement.portfolio.application.dto.PositionDto;
+import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
 import co.pla.portfoliomanagement.portfolio.application.facade.PortfolioFacade;
 import co.pla.portfoliomanagement.portfolio.application.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ public class PortfolioFacadeImpl implements PortfolioFacade {
     }
 
     @Override
-    public PortfolioDto addPosition(UUID uid, PositionDto positionDto) {
-        return portfolioService.addPosition(uid, positionDto);
+    public PortfolioDto addPosition(UUID uid, StockPositionDto StockPositionDto) {
+        return portfolioService.addPosition(uid, StockPositionDto);
     }
 
     @Override
-    public PortfolioDto updatePosition(UUID portfolioUid, PositionDto positionDto) {
-        return portfolioService.updatePosition(portfolioUid, positionDto);
+    public PortfolioDto updatePosition(UUID portfolioUid, StockPositionDto StockPositionDto) {
+        return portfolioService.updatePosition(portfolioUid, StockPositionDto);
     }
 
 
