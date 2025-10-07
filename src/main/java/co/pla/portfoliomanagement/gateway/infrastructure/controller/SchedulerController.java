@@ -44,7 +44,7 @@ public class SchedulerController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/job/enum")
+    @GetMapping("/job/types")
     public ResponseEntity<Object> getJobTypes() {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.getEnum()));
     }
