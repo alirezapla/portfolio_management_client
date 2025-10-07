@@ -3,10 +3,12 @@ package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
 import co.pla.portfoliomanagement.scheduler.application.facade.SchedulerFacade;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "SchedulerController", description = "Scheduler tag")
 @RestController()
 @RequestMapping(value = "/scheduler")
 public class SchedulerController {
