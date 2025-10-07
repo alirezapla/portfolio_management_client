@@ -4,6 +4,7 @@ import co.pla.portfoliomanagement.gateway.dto.PortfolioRequest;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
 import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
 import co.pla.portfoliomanagement.portfolio.application.facade.PortfolioFacade;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@Tag(name = "PortfolioController", description = "Portfolio tag")
 @RestController
 @RequestMapping("/portfolios")
 @RequiredArgsConstructor

@@ -1,5 +1,6 @@
-package co.pla.portfoliomanagement.gateway.infrastructure.security;
+package co.pla.portfoliomanagement.gateway.infrastructure.config;
 
+import co.pla.portfoliomanagement.gateway.infrastructure.security.JwtAuthenticationFilter;
 import co.pla.portfoliomanagement.identity.infrastructure.security.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -42,11 +43,15 @@ public class SecurityConfig {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable()
-
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/message").permitAll()
+                        .requestMatchers(
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**",
+                                        "/v3/api-docs"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
