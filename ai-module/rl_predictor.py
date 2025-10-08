@@ -8,8 +8,12 @@ class RlModelMock:
     def predict(self, symbols: list):
         predictions = ""
         for symbol in symbols:
-            predict = randrange(-100, 100)
-            predictions += f"{symbol}-{predict},"
+            predict = randrange(-300, 100)
+            if predict < 0:
+                predict = f"-{abs(predict)}"
+            else:
+                predict = f"+{abs(predict)}"
+            predictions += f"{symbol}_{predict},"
         return predictions[:-1]
 
 

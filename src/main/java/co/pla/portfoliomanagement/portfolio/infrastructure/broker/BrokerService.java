@@ -13,7 +13,7 @@ public class BrokerService implements MessageQueueBroker {
     }
 
     @Override
-    public void sendMessage(String message, String portfolioId) {
-        mqSender.send(message, portfolioId);
+    public void sendMessage(String message, String portfolioId,String predictionId) {
+        mqSender.send(message, portfolioId,predictionId);
     }
 }

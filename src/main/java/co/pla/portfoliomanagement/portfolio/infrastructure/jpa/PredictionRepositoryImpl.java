@@ -31,6 +31,11 @@ public class PredictionRepositoryImpl implements PredictionRepository {
         return predictionJpaRepository.findByPortfolioUid(portfolioId);
     }
 
+    @Override
+    public Optional<Prediction> findByUid(UUID predictionUid) {
+        return predictionJpaRepository.findByUid(predictionUid);
+    }
+
 
     @Override
     public List<Prediction> findPendingItems() {

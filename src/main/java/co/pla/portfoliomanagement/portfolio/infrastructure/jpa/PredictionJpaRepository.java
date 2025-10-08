@@ -13,4 +13,5 @@ public interface PredictionJpaRepository extends JpaRepository<Prediction, Long>
     List<Prediction> findByStatus(Prediction.PredictionStatus status);
     Optional<Prediction> findByPortfolioUidAndStatus(UUID portfolioId, Prediction.PredictionStatus status);
     Optional<Prediction> findByPortfolioUid(UUID portfolioId);
+    Optional<Prediction> findByUid(UUID predictionUid);
 }

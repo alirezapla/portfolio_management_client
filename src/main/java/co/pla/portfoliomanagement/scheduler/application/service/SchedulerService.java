@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -26,7 +27,11 @@ public class SchedulerService {
     }
 
     public String scheduleJob(SchedulerDto schedulerDto) {
-        ZonedDateTime startTime = ZonedDateTime.of(schedulerDto.getDateTime(), ZoneId.of("Asia/Tehran"));
+        LocalDateTime startDateTime = schedulerDto.getDateTime();
+        if (Objects.isNull(startDateTime)){
+            startDateTime = LocalDateTime.now().plusMinutes(1);
+        }
+        ZonedDateTime startTime = ZonedDateTime.of(startDateTime, ZoneId.of("Asia/Tehran"));
         validateScheduleRequest(startTime, schedulerDto, schedulerDto.getJobType());
         return scheduler.scheduleJob(startTime, schedulerDto, schedulerDto.getJobType());
     }

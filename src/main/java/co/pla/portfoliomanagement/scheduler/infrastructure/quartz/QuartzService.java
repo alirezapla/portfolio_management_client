@@ -94,14 +94,10 @@ public class QuartzService implements SchedulerContract {
         var jobDataMap = getJobDataMap(schedulerDto);
         JobDetail jobDetail = scheduler.getJobDetail(jobKey);
         var jobType = jobDetail.getJobDataMap().get("name").toString();
-        jobDetail.getJobDataMap().put("page", jobDataMap.get("page"));
-        jobDetail.getJobDataMap().put("per_page", jobDataMap.get("per_page"));
         jobDetail.getJobDataMap().put("interval", jobDataMap.get("interval"));
         Trigger trigger = scheduler.getTrigger(triggerKey(jobType, TRIGGER_GROUP_ID));
         trigger.getJobDataMap().put("triggerUpdated", true);
-
         ((SimpleTriggerImpl) trigger).setRepeatInterval(Long.valueOf((Integer) jobDataMap.get("interval") * 1000));
-
         scheduler.rescheduleJob((triggerKey(jobType, TRIGGER_GROUP_ID)), trigger);
         scheduler.addJob(jobDetail, true);
         return jobDetail.getKey().toString();
@@ -113,7 +109,6 @@ public class QuartzService implements SchedulerContract {
         var jobDataMap = getJobDataMap(schedulerDto);
         JobDetail jobDetail = buildJobDetail(getJobClass(jobClassName), jobDataMap);
         Trigger trigger = buildJobTrigger(jobDetail, startTime, getInterval(jobDataMap));
-
         Date scheduledTime = scheduler.scheduleJob(jobDetail, trigger);
         log.info("Job scheduled successfully: {} at {}", jobDetail.getKey(), scheduledTime);
 

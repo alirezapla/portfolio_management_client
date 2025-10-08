@@ -36,7 +36,7 @@ public class PredictionService {
             var stocks = portfolioRepository.findByUidWithStockPositions(portfolio.getUid()).orElseThrow(() -> new RuntimeException(""));
             var message = stocks.getStockPositions().stream().map(StockPosition::getTicker).collect(Collectors.joining(","));
             try {
-                messageQueueBroker.sendMessage(message, portfolio.getUid().toString());
+                messageQueueBroker.sendMessage(message, portfolio.getUid().toString(), prediction.getUid().toString());
             } catch (Exception e) {
                 prediction.setStatus(Prediction.PredictionStatus.FAILED);
                 predictionRepository.save(prediction);
@@ -52,12 +52,12 @@ public class PredictionService {
         return predictionRepository.save(prediction);
     }
 
-    public void processPredictionResponse(String portfolioId, String predictions) {
-        var prediction = predictionRepository.findByPortfolioId(UUID.fromString(portfolioId)).orElseThrow(() -> new RuntimeException(""));
+    public void processPredictionResponse(String portfolioId,String predictionId, String predictions) {
+        var prediction = predictionRepository.findByUid(UUID.fromString(predictionId)).orElseThrow(() -> new RuntimeException(""));
         for (String predicted : predictions.split(",")) {
             PredictionAction predictionAction = new PredictionAction();
-            var symbol = predicted.split("-")[0];
-            var action = predicted.split("-")[1];
+            var symbol = predicted.split("_")[0];
+            var action = predicted.split("_")[1];
             if (action.startsWith("+")) {
                 predictionAction.setAction(PredictionAction.ActionType.BUY);
             } else if (action.startsWith("-")) {

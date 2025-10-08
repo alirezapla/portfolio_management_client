@@ -12,6 +12,7 @@ public interface PredictionRepository {
 
     Optional<Prediction> findByPortfolioIdAndStatus(UUID portfolioId, Prediction.PredictionStatus status);
     Optional<Prediction> findByPortfolioId(UUID portfolioId);
+    Optional<Prediction> findByUid(UUID predictionId);
 
     List<Prediction> findPendingItems();
 

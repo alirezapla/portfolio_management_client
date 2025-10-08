@@ -42,14 +42,20 @@ async def message_handler(message: AbstractIncomingMessage, send_queue: str):
     msg = _fetch_message(message)
     logger.info(f"", msg.trace_id, "PREDICTION_RECEIVED", "message_handler")
     predictions = model.predict(msg.message.split(","))
-    await pub(send_queue, BROKER, _result_message(predictions, msg.trace_id, msg.portfolio_id), msg.trace_id)
+    await pub(
+        send_queue,
+        BROKER,
+        _result_message(predictions, msg.trace_id, msg.portfolio_id, msg.prediction_id),
+        msg.trace_id,
+    )
 
 
-def _result_message(message, trace_id, portfolio_id):
+def _result_message(message, trace_id, portfolio_id, prediction_id):
     res = {
         "message": message,
         "trace_id": trace_id,
         "portfolio_id": portfolio_id,
+        "prediction_id": prediction_id,
     }
     return res
 
