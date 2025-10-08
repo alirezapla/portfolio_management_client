@@ -43,6 +43,7 @@ services:
       bash -c 'python consumer.py --listen ai-entrypoint --send prediction-result'
     depends_on:
       - rabbitmq
+      - app
     volumes:
       - ./ai-module:/app
     restart: on-failure
