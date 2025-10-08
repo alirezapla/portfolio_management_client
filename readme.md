@@ -91,7 +91,6 @@ curl --request POST \
 	"interval":20,
 	"jobType":"PortfolioJob"
 }'
-
 ```
 
 #### Configs
