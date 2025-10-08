@@ -1,11 +1,12 @@
 package co.pla.portfoliomanagement.portfolio;
 
 
-import co.pla.portfoliomanagement.fixture.TestConfig;
-import co.pla.portfoliomanagement.fixture.TestSecurityConfig;
+import co.pla.portfoliomanagement.config.TestConfig;
+import co.pla.portfoliomanagement.config.TestSecurityConfig;
+import co.pla.portfoliomanagement.fixture.BaseIntegrationTest;
+import co.pla.portfoliomanagement.fixture.TestData;
+import co.pla.portfoliomanagement.fixture.TestDataFixture;
 import co.pla.portfoliomanagement.gateway.dto.PortfolioRequest;
-import co.pla.portfoliomanagement.identity.application.dto.CreateUserDto;
-import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
 import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
 import co.pla.portfoliomanagement.portfolio.application.facade.PortfolioFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,15 +19,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.Collections;
-import java.util.HashSet;
+
 import java.util.UUID;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -36,48 +32,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Testcontainers
-@Import({TestConfig.class, TestSecurityConfig.class})
+@Import({TestDataFixture.class, TestConfig.class, TestSecurityConfig.class})
 @ActiveProfiles("test")
-class PortfolioIntegrationTests {
-
-    @Container
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:14-alpine")
-            .withDatabaseName("testdb")
-            .withUsername("test")
-            .withPassword("test");
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private PortfolioFacade portfolioFacade;
+class PortfolioIntegrationTests extends BaseIntegrationTest {
 
     private static UUID testUserUid;
     private static UUID testAdminUid;
     private static UUID testPortfolioUid;
-
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-    }
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private PortfolioFacade portfolioFacade;
 
     @BeforeAll
-    static void setUpOnce(@Autowired UserFacade userFacade,
-                          @Autowired PortfolioFacade portfolioFacade) {
-        var user = userFacade.createUser(new CreateUserDto("user", "123", "a@b.com",
-                new HashSet<>(Collections.singleton("AUTHORITY_USER"))));
-        testUserUid = user.id();
-
-        var admin = userFacade.createUser(new CreateUserDto("admin", "123", "aa@b.com",
-                new HashSet<>(Collections.singleton("AUTHORITY_ADMIN"))));
-        testAdminUid = admin.id();
-
-        var portfolio = portfolioFacade.create("Test Portfolio", testAdminUid, 10000.0);
-        testPortfolioUid = portfolio.id();
+    static void setUpOnce(@Autowired TestData testData) {
+        testUserUid = testData.user().getUid();
+        testAdminUid = testData.admin().getUid();
+        testPortfolioUid = testData.portfolio().getUid();
     }
 
     @Test
