@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -25,6 +26,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,15 +36,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @Import({TestDataFixture.class, TestConfig.class, TestSecurityConfig.class})
 @ActiveProfiles("test")
+@DirtiesContext
 class PortfolioIntegrationTests extends BaseIntegrationTest {
 
     private static UUID testUserUid;
     private static UUID testAdminUid;
     private static UUID testPortfolioUid;
+
     @Autowired
     private MockMvc mockMvc;
+
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     private PortfolioFacade portfolioFacade;
 
@@ -104,16 +110,19 @@ class PortfolioIntegrationTests extends BaseIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(stockPositionDto)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.stockPositions[0].ticker").value("AAPL"))
-                .andExpect(jsonPath("$.data.stockPositions[0].quantity").value(100))
-                .andExpect(jsonPath("$.data.stockPositions[0].weight").value(25.0));
+                .andExpect(jsonPath("$.data.stockPositions[*].ticker",
+                        containsInAnyOrder("AAPL", "AAA")))
+                .andExpect(jsonPath("$.data.stockPositions[*].quantity",
+                        containsInAnyOrder(100, 1000)))
+                .andExpect(jsonPath("$.data.stockPositions[*].weight",
+                        containsInAnyOrder(25.0, 20.0)));
     }
 
     @Test
     @WithMockUser(authorities = "ADMIN")
     void shouldUpdatePositionSuccessfully() throws Exception {
         // Arrange
-        StockPositionDto newStockPositionDto = new StockPositionDto("AAPL", 50, 5.0);
+        StockPositionDto newStockPositionDto = new StockPositionDto("AAA", 50, 5.0);
 
         // Act & Assert
         mockMvc.perform(put("/portfolios/{portfolioUid}/positions", testPortfolioUid)
@@ -121,7 +130,7 @@ class PortfolioIntegrationTests extends BaseIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newStockPositionDto)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.stockPositions[0].quantity").value(150))
-                .andExpect(jsonPath("$.data.stockPositions[0].weight").value(30.0));
+                .andExpect(jsonPath("$.data.stockPositions[0].quantity").value(1050))
+                .andExpect(jsonPath("$.data.stockPositions[0].weight").value(25.0));
     }
 }

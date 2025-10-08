@@ -37,7 +37,7 @@ public class TestDataFixture {
         portfolio.setName("Test Portfolio");
         portfolio.setUserUid(user.getUid());
         portfolio.setBalance(10000.0);
-        var stocks = new StockPosition(portfolio, "AAA", 1000, 20d);
+        var stocks = new StockPosition(portfolio, "AAA", 1000, 20.0);
         portfolio.setStockPositions(Set.of(stocks));
         var savedPortfolio = portfolioRepository.save(portfolio);
 
