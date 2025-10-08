@@ -24,3 +24,13 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  app:
+    build:
+      args:
+        JAR_FILE: target/*.jar
+      context: .
+    container_name: app
+    depends_on:
+      - postgres
+    ports:
+      - "8877:8877"
