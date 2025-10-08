@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.fixture;
+package co.pla.portfoliomanagement.config;
 
 import co.pla.portfoliomanagement.portfolio.infrastructure.broker.MQListener;
 import co.pla.portfoliomanagement.scheduler.domain.SchedulerContract;

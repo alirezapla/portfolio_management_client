@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     public User() {
     }
 
-    public User(String username, String email, String password, String role, Set<UserAuthority> userAuthorities) {
+    public User(String username, String email, String password, Set<UserAuthority> userAuthorities) {
         this.username = username;
         this.email = email;
         this.passwordHash = password;

@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.fixture;
+package co.pla.portfoliomanagement.config;
 
 import co.pla.portfoliomanagement.gateway.infrastructure.security.JwtAuthenticationFilter;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.JwtUtil;
