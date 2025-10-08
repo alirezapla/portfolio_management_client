@@ -27,6 +27,13 @@ public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final UserFacade userFacade;
 
+    public List<PortfolioDto> getAllPortfolios() {
+        return portfolioRepository.findAll()
+                .stream()
+                .map(PortfolioDto::fromEntity)
+                .toList();
+    }
+
     public PortfolioDto createPortfolio(String name, UUID userUid, Double initialBalance) {
         if (userFacade.isPresent(userUid)) {
             if (portfolioRepository.existsByName(name)) {

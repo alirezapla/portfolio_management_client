@@ -21,18 +21,14 @@ public class MQSender {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void send(String message) {
-        var rabbitMessage = messageBuilder("123456",message);
+    public void send(String message, String portfolioId) {
+        var rabbitMessage = messageBuilder(UUID.randomUUID().toString(), portfolioId, message);
         rabbitTemplate.convertAndSend(queueName, rabbitMessage);
-        System.out.println("Send msg to consumer= " + rabbitMessage.entrySet()
-                .stream()
-                .map(Object::toString)
-                .collect(joining(",")) +" ");
     }
 
-    private HashMap messageBuilder(String traceId,String message) {
+    private HashMap messageBuilder(String traceId, String portfolioId, String message) {
         var messageMap = new HashMap<String, String>();
-        messageMap.put("portfolio_id", UUID.randomUUID().toString());
+        messageMap.put("portfolio_id", portfolioId);
         messageMap.put("trace_id", traceId);
         messageMap.put("message", message);
         return messageMap;

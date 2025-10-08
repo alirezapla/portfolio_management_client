@@ -16,6 +16,11 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     private final PortfolioJpaRepository jpaRepository;
 
     @Override
+    public List<Portfolio> findAll() {
+        return jpaRepository.findAll();
+    }
+
+    @Override
     public Optional<Portfolio> findByUid(UUID uid) {
         return jpaRepository.findByUid(uid);
     }
@@ -39,4 +44,5 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public Optional<Portfolio> findByUidWithStockPositions(UUID uid) {
         return jpaRepository.findByUidWithStockPositions(uid);
     }
+
 }
