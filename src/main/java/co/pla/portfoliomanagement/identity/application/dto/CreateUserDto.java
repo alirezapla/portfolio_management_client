@@ -37,7 +37,6 @@ public class CreateUserDto {
                 this.username,
                 this.email,
                 this.password,
-                "USER",
                 this.authorities
                         .stream()
                         .map(UserAuthorityType::getByUserAuthorityTitle)
