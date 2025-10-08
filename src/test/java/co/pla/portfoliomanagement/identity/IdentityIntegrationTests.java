@@ -14,13 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -36,16 +32,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Import({TestDataFixture.class, TestConfig.class, TestSecurityConfig.class})
 @ActiveProfiles("test")
+@DirtiesContext
 public class IdentityIntegrationTests extends BaseIntegrationTest {
 
     private static UUID testUserUid;
     private static UUID testAdminId;
     private static UserDto testUserDto;
     private static Long testUserId;
+
     @Autowired
     private MockMvc mockMvc;
+
     @Autowired
     private ObjectMapper objectMapper;
+
     @Autowired
     private UserFacade userFacade;
 
@@ -133,7 +133,6 @@ public class IdentityIntegrationTests extends BaseIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
-
     }
 
     @Test
@@ -149,7 +148,6 @@ public class IdentityIntegrationTests extends BaseIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value("Password changed Successfully"));
-
     }
 
     @Test
@@ -162,6 +160,5 @@ public class IdentityIntegrationTests extends BaseIntegrationTest {
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string("deleted"));
-
     }
 }
