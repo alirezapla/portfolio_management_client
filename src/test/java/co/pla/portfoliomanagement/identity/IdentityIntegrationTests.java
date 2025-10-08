@@ -2,96 +2,100 @@ package co.pla.portfoliomanagement.identity;
 
 import co.pla.portfoliomanagement.config.TestConfig;
 import co.pla.portfoliomanagement.config.TestSecurityConfig;
+import co.pla.portfoliomanagement.fixture.BaseIntegrationTest;
 import co.pla.portfoliomanagement.fixture.TestData;
 import co.pla.portfoliomanagement.fixture.TestDataFixture;
 import co.pla.portfoliomanagement.identity.application.dto.*;
 import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Testcontainers
 @Import({TestDataFixture.class, TestConfig.class, TestSecurityConfig.class})
 @ActiveProfiles("test")
-public class IdentityIntegrationTests {
-
+public class IdentityIntegrationTests extends BaseIntegrationTest {
 
     private static UUID testUserUid;
+    private static UUID testAdminId;
     private static UserDto testUserDto;
     private static Long testUserId;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
-    @MockitoBean
+    @Autowired
     private UserFacade userFacade;
 
-    @BeforeAll
-    static void setUpOnce(@Autowired TestData testData) {
+    @Autowired
+    private TestData testData;
+
+    @PostConstruct
+    void initializeTestData() {
         testUserUid = testData.user().getUid();
         testUserId = testData.user().getId();
+        testAdminId = testData.admin().getUid();
         testUserDto = new UserDto(testUserUid, "user", "user@mail.co");
     }
 
-
     @Test
+    @WithMockUser(username = "user", authorities = "USER")
     void shouldGetUserSuccessfully() throws Exception {
         // Arrange
-        when(userFacade.getUserByUid(testUserUid)).thenReturn(testUserDto);
 
         // Act & Assert
-        mockMvc.perform(get("/users/{id}", testUserUid).with(csrf()))
+        mockMvc.perform(get("/users/{id}", testUserUid))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.id").value(testUserUid.toString()))
-                .andExpect(jsonPath("$.data.username").value("testuser"))
-                .andExpect(jsonPath("$.data.email").value("test@example.com"));
-
-        verify(userFacade, times(1)).getUserByUid(testUserUid);
+                .andExpect(jsonPath("$.data.username").value("user"))
+                .andExpect(jsonPath("$.data.email").value("user@mail.co"));
     }
 
     @Test
+    @WithMockUser(username = "user", authorities = "USER")
     void shouldGetUsersWithPagination() throws Exception {
         // Arrange
-        UsersDto usersDto = new UsersDto(List.of(testUserDto), 1L);
-        when(userFacade.getUsers(anyInt(), anyInt())).thenReturn(usersDto);
 
         // Act & Assert
         mockMvc.perform(get("/users")
                         .param("page", "1")
                         .param("perPage", "10"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.users[0].id").value(testUserUid.toString()))
-                .andExpect(jsonPath("$.data.total").value(1));
-
-        verify(userFacade, times(1)).getUsers(1, 10);
+                .andExpect(jsonPath("$.data.users.length()").value(2))
+                .andExpect(jsonPath("$.data.total").value(2))
+                .andExpect(jsonPath("$.data.users[*].id",
+                        containsInAnyOrder(testData.admin().getUid().toString(), testData.user().getUid().toString())))
+                .andExpect(jsonPath("$.data.users[*].username",
+                        containsInAnyOrder("admin", "user")));
     }
 
     @Test
+    @WithMockUser(username = "user", authorities = "USER")
     void shouldUpdateUserSuccessfully() throws Exception {
         // Arrange
-        EditUserDto editUserDto = new EditUserDto(testUserUid, "updateduser", Set.of("ADMIN"));
-        when(userFacade.updateUser(any(EditUserDto.class))).thenReturn(testUserDto);
+        EditUserDto editUserDto = new EditUserDto(testUserUid, "updateduser", Set.of("AUTHORITY_ADMIN"));
 
         // Act & Assert
         mockMvc.perform(put("/users")
@@ -100,8 +104,6 @@ public class IdentityIntegrationTests {
                         .content(objectMapper.writeValueAsString(editUserDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.id").value(testUserUid.toString()));
-
-        verify(userFacade, times(1)).updateUser(any(EditUserDto.class));
     }
 
     @Test
@@ -109,7 +111,6 @@ public class IdentityIntegrationTests {
     void shouldChangePasswordByAdminSuccessfully() throws Exception {
         // Arrange
         ChangePasswordByAdminDto request = new ChangePasswordByAdminDto(testUserId, "newPassword123");
-        when(userFacade.changePasswordByAdmin(any(ChangePasswordByAdminDto.class))).thenReturn("Password changed Successfully");
 
         // Act & Assert
         mockMvc.perform(put("/users/admin/change-password")
@@ -118,8 +119,6 @@ public class IdentityIntegrationTests {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value("Password changed Successfully"));
-
-        verify(userFacade, times(1)).changePasswordByAdmin(any(ChangePasswordByAdminDto.class));
     }
 
     @Test
@@ -135,14 +134,13 @@ public class IdentityIntegrationTests {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isForbidden());
 
-        verify(userFacade, never()).changePasswordByAdmin(any(ChangePasswordByAdminDto.class));
     }
 
     @Test
+    @WithMockUser(username = "admin", authorities = "USER")
     void shouldChangePasswordSuccessfully() throws Exception {
         // Arrange
-        ChangePasswordDto request = new ChangePasswordDto(testUserUid, "currentPass", "newPass123");
-        when(userFacade.changePassword(any(ChangePasswordDto.class))).thenReturn("Password changed Successfully");
+        ChangePasswordDto request = new ChangePasswordDto(testAdminId, "pass@admin", "new@pass@admin");
 
         // Act & Assert
         mockMvc.perform(put("/users/change-password")
@@ -152,20 +150,18 @@ public class IdentityIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").value("Password changed Successfully"));
 
-        verify(userFacade, times(1)).changePassword(any(ChangePasswordDto.class));
     }
 
     @Test
+    @WithMockUser(username = "user", authorities = "USER")
     void shouldDeleteUserSuccessfully() throws Exception {
         // Arrange
-        doNothing().when(userFacade).deleteUserByUid(testUserUid);
 
         // Act & Assert
-        mockMvc.perform(delete("/users/{id}", testUserId)
+        mockMvc.perform(delete("/users/{id}", testAdminId)
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string("deleted"));
 
-        verify(userFacade, times(1)).deleteUserByUid(testUserUid);
     }
 }
