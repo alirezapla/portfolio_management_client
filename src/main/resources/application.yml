@@ -91,3 +91,9 @@ spring:
     routingKey: prediction
     exchange: prediction-exchange
     receive-queue: prediction-result
+
+logging:
+  level:
+    co.pla.portfoliomanagement: DEBUG
+  file:
+    name: logs/app.log
