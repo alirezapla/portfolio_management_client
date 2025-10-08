@@ -7,4 +7,5 @@ RUN python3 -m pip install  --trusted-host https://pypi.mirrors.ustc.edu.cn -i h
 
 RUN mkdir /app
 WORKDIR /app
-RUN pip install  --trusted-host https://pypi.mirrors.ustc.edu.cn -i https://pypi.mirrors.ustc.edu.cn/simple/  -r requirements.txtgit
+COPY ai-module /app
+RUN pip install  --trusted-host https://pypi.mirrors.ustc.edu.cn -i https://pypi.mirrors.ustc.edu.cn/simple/  -r requirements.txt

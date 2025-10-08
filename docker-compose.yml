@@ -34,3 +34,16 @@ services:
       - postgres
     ports:
       - "4569:4569"
+  ai-app:
+    build:
+      context: .
+      dockerfile: ./ai-module/Dockerfile
+    container_name: ai-app
+    command:
+      bash -c 'python consumer.py --listen ai-entrypoint --send prediction-result'
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./ai-module:/app
+    restart: on-failure
+
