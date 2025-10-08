@@ -41,14 +41,15 @@ async def broker_ready_up(conn: AbstractRobustConnection, listen_queue: str):
 async def message_handler(message: AbstractIncomingMessage, send_queue: str):
     msg = _fetch_message(message)
     logger.info(f"", msg.trace_id, "PREDICTION_RECEIVED", "message_handler")
-    await pub(send_queue, BROKER, _result_message(msg), msg.trace_id)
+    predictions = model.predict(msg.message.split(","))
+    await pub(send_queue, BROKER, _result_message(predictions, msg.trace_id, msg.portfolio_id), msg.trace_id)
 
 
-def _result_message(message: PredictionMessage):
+def _result_message(message, trace_id, portfolio_id):
     res = {
-        "message": message.message,
-        "trace_id": message.trace_id,
-        "portfolio_id": message.portfolio_id,
+        "message": message,
+        "trace_id": trace_id,
+        "portfolio_id": portfolio_id,
     }
     return res
 

@@ -5,8 +5,12 @@ class RlModelMock:
     def __init__(self):
         pass
 
-    def predict(self, stocks: list):
-        return [randrange(-100, 100) for _ in range(len(stocks))]
+    def predict(self, symbols: list):
+        predictions = ""
+        for symbol in symbols:
+            predict = randrange(-100, 100)
+            predictions += f"{symbol}-{predict},"
+        return predictions[:-1]
 
 
 model = RlModelMock()
