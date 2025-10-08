@@ -23,7 +23,7 @@ public class SchedulerController {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.createScheduler(schedulerDto)));
     }
 
-    @PutMapping("/job/{id}")
+    @PutMapping("/jobs/{id}")
     public ResponseEntity<Object> updateTask(@RequestBody SchedulerDto schedulerDto, @PathVariable String id) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.updateScheduler(schedulerDto, id)));
     }
@@ -33,12 +33,12 @@ public class SchedulerController {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.getAllJobs()));
     }
 
-    @GetMapping("/job/{id}")
+    @GetMapping("/jobs/{id}")
     public ResponseEntity<Object> getJob(@PathVariable String id) {
         return ResponseEntity.ok(new SuccessfulResponseEntity<>(schedulerFacade.getJob(id)));
     }
 
-    @DeleteMapping("/job/{id}")
+    @DeleteMapping("/jobs/{id}")
     public ResponseEntity<Void> removeJob(@PathVariable String id) {
         var res = schedulerFacade.removeJob(id);
         return ResponseEntity.ok().build();
