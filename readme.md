@@ -23,20 +23,17 @@ All module facades and security layers are centralized in the Gateway module.
 #### Identity
 
 - User authentication, roles, and permissions
-- Suggested tables: users, roles, user_roles
-- endpoints: /api/v1/auth/login, /api/v1/auth/register, /api/users/me
+- tables: users
 
 #### Portfolio
 
 - Manages portfolios, positions, and AI predictions
-- Suggested tables: portfolios, positions, predictions, prediction_actions
-- endpoints: /api/v1/portfolios, /api/v1/portfolios/{id}/positions
+- tables: portfolios, positions, predictions, prediction_actions
 
 #### Scheduler
 
 - Quartz jobs for triggering portfolio checks
 - Works with PortfolioFacade to fetch data and send messages
-- endpoints: /api/scheduler/trigger, /api/scheduler/status
 
 #### Common
 
@@ -123,9 +120,11 @@ public class MyJob implements Job {
 
 | Endpoint               | Method | Description                         | Auth Required |
 |------------------------|--------|-------------------------------------|---------------|
-| `/api/v1/portfolios`         | GET    | List all portfolios                    | Yes           |
-| `/api/v1/portfolios/{id}`    | GET    | Get portfolio details with bids        | Yes           |
+| `/api/v1/portfolios/{userUId}`         | GET    | get user's portfolio                    | Yes           |
+| `/api/v1/portfolios/{id}`    | GET    | Get portfolio details with positions        | Yes           |
 | `/api/v1/portfolios`         | POST   | Create new portfolio                   | Yes           |
+| `/api/v1/portfolios/{id}/positions`         | POST   | Create new positions                   | Yes           |
+| `/api/v1/portfolios/{id}/positions`         | PUT   | update positions                   | Yes           |
 
 ### Scheduler
 
