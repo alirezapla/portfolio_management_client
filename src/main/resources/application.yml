@@ -57,6 +57,10 @@ spring:
     schemas: portfolio
     default-schema: portfolio
     locations: classpath:db/migration
+    url: jdbc:postgresql://localhost:5432/portfolio?allowPublicKeyRetrieval=true&useSSL=false
+    user: root
+    password: 123@abc
+
   quartz:
     job-store-type: jdbc
     jdbc:

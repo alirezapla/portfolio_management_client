@@ -1,10 +1,10 @@
 package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
-import co.pla.portfoliomanagement.identity.application.dto.ChangePasswordByAdminDto;
-import co.pla.portfoliomanagement.identity.application.dto.ChangePasswordDto;
-import co.pla.portfoliomanagement.identity.application.dto.EditUserDto;
-import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
+import co.pla.portfoliomanagement.common.dto.ChangePasswordByAdminDto;
+import co.pla.portfoliomanagement.common.dto.ChangePasswordDto;
+import co.pla.portfoliomanagement.common.dto.EditUserDto;
+import co.pla.portfoliomanagement.common.facade.UserFacade;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,8 +1,8 @@
-package co.pla.portfoliomanagement.identity.application.facade.impl;
+package co.pla.portfoliomanagement.identity.application.facade;
 
 
-import co.pla.portfoliomanagement.identity.application.dto.*;
-import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
+import co.pla.portfoliomanagement.common.dto.*;
+import co.pla.portfoliomanagement.common.facade.UserFacade;
 import co.pla.portfoliomanagement.identity.application.service.UserService;
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 import lombok.RequiredArgsConstructor;

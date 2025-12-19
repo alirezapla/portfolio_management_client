@@ -1,7 +1,7 @@
 package co.pla.portfoliomanagement.identity.application.service;
 
+import co.pla.portfoliomanagement.common.dto.*;
 import co.pla.portfoliomanagement.common.exceptions.ExceptionMessages;
-import co.pla.portfoliomanagement.identity.application.dto.*;
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 import co.pla.portfoliomanagement.identity.domain.entity.UserAuthorityType;
 import co.pla.portfoliomanagement.identity.domain.entity.UserAuthority;

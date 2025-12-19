@@ -1,7 +1,7 @@
-package co.pla.portfoliomanagement.scheduler.application.facade;
+package co.pla.portfoliomanagement.common.facade;
 
-import co.pla.portfoliomanagement.scheduler.application.dto.JobDetailDto;
-import co.pla.portfoliomanagement.scheduler.application.dto.JobSummaryDto;
+import co.pla.portfoliomanagement.common.dto.JobDetailDto;
+import co.pla.portfoliomanagement.common.dto.JobSummaryDto;
 import co.pla.portfoliomanagement.scheduler.infrastructure.job.JobEnum;
 import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 

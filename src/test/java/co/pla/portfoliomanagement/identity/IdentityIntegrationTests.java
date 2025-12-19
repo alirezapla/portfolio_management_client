@@ -1,12 +1,15 @@
 package co.pla.portfoliomanagement.identity;
 
+import co.pla.portfoliomanagement.common.dto.ChangePasswordByAdminDto;
+import co.pla.portfoliomanagement.common.dto.ChangePasswordDto;
+import co.pla.portfoliomanagement.common.dto.EditUserDto;
+import co.pla.portfoliomanagement.common.dto.UserDto;
 import co.pla.portfoliomanagement.config.TestConfig;
 import co.pla.portfoliomanagement.config.TestSecurityConfig;
 import co.pla.portfoliomanagement.fixture.BaseIntegrationTest;
 import co.pla.portfoliomanagement.fixture.TestData;
 import co.pla.portfoliomanagement.fixture.TestDataFixture;
-import co.pla.portfoliomanagement.identity.application.dto.*;
-import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
+import co.pla.portfoliomanagement.common.facade.UserFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Test;

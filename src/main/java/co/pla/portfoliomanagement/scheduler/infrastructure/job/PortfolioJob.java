@@ -1,7 +1,6 @@
 package co.pla.portfoliomanagement.scheduler.infrastructure.job;
 
-import co.pla.portfoliomanagement.portfolio.application.facade.PredictionFacade;
-import co.pla.portfoliomanagement.scheduler.application.service.SchedulerService;
+import co.pla.portfoliomanagement.common.facade.PredictionFacade;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.quartz.StatefulJob;

@@ -2,7 +2,7 @@ package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
 import co.pla.portfoliomanagement.common.dto.SchedulerDto;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
-import co.pla.portfoliomanagement.scheduler.application.facade.SchedulerFacade;
+import co.pla.portfoliomanagement.common.facade.SchedulerFacade;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

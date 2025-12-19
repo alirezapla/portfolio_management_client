@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.identity.application.dto;
+package co.pla.portfoliomanagement.common.dto;
 
 import java.util.UUID;
 

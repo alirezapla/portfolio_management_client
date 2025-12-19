@@ -1,8 +1,8 @@
-package co.pla.portfoliomanagement.portfolio.application.facade.impl;
+package co.pla.portfoliomanagement.portfolio.application.facade;
 
-import co.pla.portfoliomanagement.portfolio.application.dto.PortfolioDto;
-import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
-import co.pla.portfoliomanagement.portfolio.application.facade.PortfolioFacade;
+import co.pla.portfoliomanagement.common.dto.PortfolioDto;
+import co.pla.portfoliomanagement.common.dto.StockPositionDto;
+import co.pla.portfoliomanagement.common.facade.PortfolioFacade;
 import co.pla.portfoliomanagement.portfolio.application.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

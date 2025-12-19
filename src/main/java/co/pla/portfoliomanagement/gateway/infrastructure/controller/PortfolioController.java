@@ -2,8 +2,8 @@ package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
 import co.pla.portfoliomanagement.gateway.dto.PortfolioRequest;
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
-import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
-import co.pla.portfoliomanagement.portfolio.application.facade.PortfolioFacade;
+import co.pla.portfoliomanagement.common.dto.StockPositionDto;
+import co.pla.portfoliomanagement.common.facade.PortfolioFacade;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

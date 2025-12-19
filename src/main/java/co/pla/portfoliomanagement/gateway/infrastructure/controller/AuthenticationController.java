@@ -2,7 +2,7 @@ package co.pla.portfoliomanagement.gateway.infrastructure.controller;
 
 import co.pla.portfoliomanagement.gateway.infrastructure.util.response.SuccessfulResponseEntity;
 import co.pla.portfoliomanagement.gateway.infrastructure.security.AuthenticationService;
-import co.pla.portfoliomanagement.identity.application.dto.SignupDto;
+import co.pla.portfoliomanagement.common.dto.SignupDto;
 import co.pla.portfoliomanagement.common.dto.LoginDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

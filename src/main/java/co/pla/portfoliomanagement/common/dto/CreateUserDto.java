@@ -1,5 +1,6 @@
-package co.pla.portfoliomanagement.identity.application.dto;
+package co.pla.portfoliomanagement.common.dto;
 
+import co.pla.portfoliomanagement.common.dto.SignupDto;
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 import co.pla.portfoliomanagement.identity.domain.entity.UserAuthorityType;
 import co.pla.portfoliomanagement.identity.domain.entity.UserAuthority;
@@ -7,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter

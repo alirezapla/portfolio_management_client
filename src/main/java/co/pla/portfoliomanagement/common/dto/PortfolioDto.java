@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.portfolio.application.dto;
+package co.pla.portfoliomanagement.common.dto;
 
 import co.pla.portfoliomanagement.portfolio.domain.entity.Portfolio;
 

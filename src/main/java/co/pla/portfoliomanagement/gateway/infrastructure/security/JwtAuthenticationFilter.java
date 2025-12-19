@@ -41,12 +41,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         try {
             final String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
-            if (isPublicEndpoint(httpServletRequest)) {
-                filterChain.doFilter(httpServletRequest, httpServletResponse);
-                return;
-            }
             if (authenticationHeaderIsNotExist(authorizationHeader)) {
-                handleException(httpServletResponse, "Missing or invalid JWT token", HttpStatus.UNAUTHORIZED);
+                // No auth header; proceed and let Spring Security decide based on permitAll/auth rules
+                filterChain.doFilter(httpServletRequest, httpServletResponse);
                 return;
             }
             String jwt = extractJWTFromAuthorizationHeader(authorizationHeader);
@@ -108,10 +105,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return username != null && SecurityContextHolder.getContext().getAuthentication() == null;
     }
 
-    private boolean isPublicEndpoint(HttpServletRequest request) {
-        String path = request.getServletPath();
-        return path.startsWith("/auth") ||
-                path.startsWith("/swagger-ui") ||
-                path.startsWith("/v3/api-docs");
-    }
+    // Public endpoints are controlled by HttpSecurity configuration; no need to duplicate here
 }

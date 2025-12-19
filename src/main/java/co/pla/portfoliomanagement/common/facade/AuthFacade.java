@@ -1,7 +1,7 @@
-package co.pla.portfoliomanagement.identity.application.facade;
+package co.pla.portfoliomanagement.common.facade;
 
-import co.pla.portfoliomanagement.identity.application.dto.SignupDto;
-import co.pla.portfoliomanagement.identity.application.dto.UserDto;
+import co.pla.portfoliomanagement.common.dto.SignupDto;
+import co.pla.portfoliomanagement.common.dto.UserDto;
 import co.pla.portfoliomanagement.common.dto.LoginDto;
 import co.pla.portfoliomanagement.common.dto.LoginSuccessDto;
 

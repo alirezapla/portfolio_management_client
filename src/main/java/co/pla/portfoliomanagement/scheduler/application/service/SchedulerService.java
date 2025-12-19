@@ -1,8 +1,8 @@
 package co.pla.portfoliomanagement.scheduler.application.service;
 
 import co.pla.portfoliomanagement.common.dto.SchedulerDto;
-import co.pla.portfoliomanagement.scheduler.application.dto.JobDetailDto;
-import co.pla.portfoliomanagement.scheduler.application.dto.JobSummaryDto;
+import co.pla.portfoliomanagement.common.dto.JobDetailDto;
+import co.pla.portfoliomanagement.common.dto.JobSummaryDto;
 import co.pla.portfoliomanagement.scheduler.application.exceptions.JobDetailException;
 import co.pla.portfoliomanagement.scheduler.domain.SchedulerContract;
 import io.micrometer.common.util.StringUtils;

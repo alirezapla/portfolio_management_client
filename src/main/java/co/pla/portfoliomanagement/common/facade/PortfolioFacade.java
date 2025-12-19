@@ -1,7 +1,7 @@
-package co.pla.portfoliomanagement.portfolio.application.facade;
+package co.pla.portfoliomanagement.common.facade;
 
-import co.pla.portfoliomanagement.portfolio.application.dto.PortfolioDto;
-import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
+import co.pla.portfoliomanagement.common.dto.PortfolioDto;
+import co.pla.portfoliomanagement.common.dto.StockPositionDto;
 
 import java.util.List;
 import java.util.UUID;

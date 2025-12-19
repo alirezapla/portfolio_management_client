@@ -1,10 +1,10 @@
 package co.pla.portfoliomanagement.gateway.infrastructure.security;
 
 import co.pla.portfoliomanagement.common.exceptions.ExceptionMessages;
-import co.pla.portfoliomanagement.identity.application.dto.CreateUserDto;
-import co.pla.portfoliomanagement.identity.application.dto.SignupDto;
-import co.pla.portfoliomanagement.identity.application.dto.UserDto;
-import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
+import co.pla.portfoliomanagement.common.dto.CreateUserDto;
+import co.pla.portfoliomanagement.common.dto.SignupDto;
+import co.pla.portfoliomanagement.common.dto.UserDto;
+import co.pla.portfoliomanagement.common.facade.UserFacade;
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 import co.pla.portfoliomanagement.identity.domain.entity.UserAuthorityType;
 import co.pla.portfoliomanagement.common.dto.LoginDto;

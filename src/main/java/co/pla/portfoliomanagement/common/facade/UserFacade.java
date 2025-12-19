@@ -1,6 +1,6 @@
-package co.pla.portfoliomanagement.identity.application.facade;
+package co.pla.portfoliomanagement.common.facade;
 
-import co.pla.portfoliomanagement.identity.application.dto.*;
+import co.pla.portfoliomanagement.common.dto.*;
 import co.pla.portfoliomanagement.identity.domain.entity.User;
 
 import java.util.UUID;

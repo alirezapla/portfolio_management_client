@@ -9,6 +9,7 @@ import co.pla.portfoliomanagement.portfolio.application.exceptions.PortfolioNotF
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.Instant;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {PortfolioNotFoundException.class, UserNotFoundException.class})
     protected ResponseEntity<Object> handleNotFoundException(Exception ex) {
-        ex.printStackTrace();
+        log.warn("Not found: {}", ex.getMessage());
         int status = HttpStatus.NOT_FOUND.value();
         return ResponseEntity.status(status).body(new ErrorResponse(ex.getMessage(), status));
     }
@@ -37,21 +39,21 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {SchedulerException.class, InvalidPositionUpdateException.class, DataIntegrityViolationException.class, IllegalArgumentException.class, PortfolioException.class})
     protected ResponseEntity<Object> handlePortfolioException(Exception ex) {
-        ex.printStackTrace();
+        log.warn("Bad request: {}", ex.getMessage());
         int status = HttpStatus.BAD_REQUEST.value();
         return ResponseEntity.status(status).body(new ErrorResponse(ex.getMessage(), status));
     }
 
     @ExceptionHandler(value = {ExpiredJwtException.class, InvalidPasswordException.class})
     protected ResponseEntity<Object> handleAuthenticationException(Exception ex) {
-        ex.printStackTrace();
+        log.warn("Authentication error: {}", ex.getMessage());
         int status = HttpStatus.UNAUTHORIZED.value();
         return ResponseEntity.status(status).body(new ErrorResponse(ex.getMessage(), status));
     }
 
     @ExceptionHandler(value = {RuntimeException.class, BaseApplicationException.class})
     protected ResponseEntity<Object> handleBaseApplicationException(Exception ex) {
-        ex.printStackTrace();
+        log.error("Unexpected error", ex);
         int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
         return ResponseEntity.status(status).body(new ErrorResponse(ex.getMessage(), status));
     }

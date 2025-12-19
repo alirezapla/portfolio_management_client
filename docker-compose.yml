@@ -24,16 +24,18 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  app:
-    build:
-      args:
-        JAR_FILE: target/*.jar
-      context: .
-    container_name: app
-    depends_on:
-      - postgres
-    ports:
-      - "4569:4569"
+#  app:
+#    build:
+#      args:
+#        JAR_FILE: target/*.jar
+#      context: .
+#    container_name: app
+#    environment:
+#      - DB_HOST=postgres
+#    depends_on:
+#      - postgres
+#    ports:
+#      - "4569:4569"
   ai-app:
     build:
       context: .
@@ -43,7 +45,7 @@ services:
       bash -c 'python consumer.py --listen ai-entrypoint --send prediction-result'
     depends_on:
       - rabbitmq
-      - app
+
     volumes:
       - ./ai-module:/app
     restart: on-failure

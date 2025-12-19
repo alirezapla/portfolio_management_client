@@ -1,8 +1,8 @@
 package co.pla.portfoliomanagement.portfolio.application.service;
 
-import co.pla.portfoliomanagement.identity.application.facade.UserFacade;
-import co.pla.portfoliomanagement.portfolio.application.dto.PortfolioDto;
-import co.pla.portfoliomanagement.portfolio.application.dto.StockPositionDto;
+import co.pla.portfoliomanagement.common.facade.UserFacade;
+import co.pla.portfoliomanagement.common.dto.PortfolioDto;
+import co.pla.portfoliomanagement.common.dto.StockPositionDto;
 import co.pla.portfoliomanagement.portfolio.application.exceptions.InvalidPositionUpdateException;
 import co.pla.portfoliomanagement.portfolio.application.exceptions.PortfolioException;
 import co.pla.portfoliomanagement.portfolio.application.exceptions.PortfolioNotFoundException;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

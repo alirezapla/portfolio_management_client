@@ -1,4 +1,4 @@
-package co.pla.portfoliomanagement.scheduler.application.dto;
+package co.pla.portfoliomanagement.common.dto;
 
 import lombok.Builder;
 import lombok.Data;
