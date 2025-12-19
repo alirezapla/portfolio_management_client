@@ -86,7 +86,6 @@ curl --request POST \
   --url http://localhost:4569/api/v1/scheduler \
   --header 'Authorization: Bearer JWT_TOKEN' \
   --header 'Content-Type: application/json' \
-  --header 'User-Agent: insomnia/11.0.0' \
   --data '{
 	"interval":20,
 	"jobType":"PortfolioJob"
